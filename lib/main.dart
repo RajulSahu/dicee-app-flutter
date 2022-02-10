@@ -27,37 +27,59 @@ class DicePage extends StatefulWidget {
 class _DicePageState extends State<DicePage> {
   int leftDiceNumber = 1;
   int rightDiceNumber = 1;
+  int sum = 2;
 
   void changeDiceFace() {
     setState(() {
       leftDiceNumber = Random().nextInt(6) + 1;
       rightDiceNumber = Random().nextInt(6) + 1;
+      sum = leftDiceNumber + rightDiceNumber;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Row(
-        children: [
-          Expanded(
-            child: TextButton(
-              onPressed: () {
-                changeDiceFace();
-              },
-              child: Image.asset('images/dice$leftDiceNumber.png'),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Text(
+                'Total = $sum',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 50.0,
+                ),
+              ),
             ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 60.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextButton(
+                  onPressed: () {
+                    changeDiceFace();
+                  },
+                  child: Image.asset('images/dice$leftDiceNumber.png'),
+                ),
+              ),
+              Expanded(
+                child: TextButton(
+                  onPressed: () {
+                    changeDiceFace();
+                  },
+                  child: Image.asset('images/dice$rightDiceNumber.png'),
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            child: TextButton(
-              onPressed: () {
-                changeDiceFace();
-              },
-              child: Image.asset('images/dice$rightDiceNumber.png'),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
